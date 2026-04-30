@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 
 function Layout()
 {
     return (
         <div>
             <nav>
-                <Link to="">Dashboard</Link>
-                <Link to="">Clients</Link>
-                <Link to="">Property</Link>
-                <Link to="">Listings</Link>
+                <Link to="/">Dashboard</Link>
+                <Link to="/clients">Clients</Link>
+                <Link to="/property">Property</Link>
+                <Link to="/listings">Listings</Link>
             </nav>
-            <h1>HI</h1>
+            <Outlet/>
         </div>
     )
 }

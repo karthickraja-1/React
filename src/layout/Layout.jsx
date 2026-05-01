@@ -13,7 +13,7 @@ import {
   Menu,
   X
 } from "lucide-react";
-import { use } from "react";
+import { useState } from "react";
 // import { cn } from "@/lib/utils";
 const navItems = [
     { icon : LayoutDashboard, path :"/",label: "Dashboard"},
@@ -23,7 +23,8 @@ const navItems = [
 ]
 function Layout()
 {
-    const location = useLocation(); 
+    const [isMobileMenuOpen, SetMobileMenu] = useState(false);
+    const location = useLocation();
     return (
         <div className="min-h-screen ">
             {/* Desktop Sidebar */}
@@ -35,7 +36,7 @@ function Layout()
                         <div className="h-9 w-9 rounded-lg flex items-center justify-center bg-amber-200">
                             <Building2 className="w-5 h-5"/>
                         </div>
-                        <span className="text-xl font-bold text-foreground">Propventory</span>
+                        <span className="text-xl font-bold text-foreground">Propventory </span>
                     </div>
 
                     {/* Navbar */}
@@ -66,9 +67,25 @@ function Layout()
                     <button className="flex items-center justify-center">
                         <Moon className="h-5 w-5" />
                     </button>
+                    <button onClick={() => SetMobileMenu(!isMobileMenuOpen)}>
+                        {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                    </button>
                 </div>
-                
+
             </header>
+            {/* MobileMenu */}
+
+            {isMobileMenuOpen && (<div className="fixed inset-0 z-40 pt-16 lg:hidden">
+                <nav  className="flex-1 space-y-1 p-4">
+                    {navItems.map((item)=>{
+                        return(
+                        <Link to={item.path}
+                                className="flex">
+                            {item.label}
+                        </Link>)
+                    })}
+                </nav>
+            </div>)}
 
             <div className="lg:ml-64 pt-16 lg:pt-0 flex-1">
                 <Outlet/>
